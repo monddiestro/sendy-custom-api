@@ -22,4 +22,28 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('welcome_message');
 	}
+
+	function subscribe() {
+
+		$time = time();
+		$join_date = round(time()/60)*60;
+
+		$email = $this->input->post('email');
+		// load model
+		$this->load->model('sendy_model');
+		$data = array(
+			'userID' => '1',
+			'email' => $email,
+			'custom_fields' => '',
+			'list' => '3',
+			'join_date' => $join_date,
+			'timestamp' => $time
+		);
+
+		// pass data to model
+		$this->sendy_model->push_data($data);
+		echo "0";
+
+
+	}
 }

@@ -50,7 +50,7 @@ class Welcome extends CI_Controller {
 		} else {
 			$data = array(
 				'unsubscribed' => 0
-			)
+			);
 			$this->sendy_model->push_update($data,$email);
 		}
 

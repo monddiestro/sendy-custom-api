@@ -31,19 +31,28 @@ class Welcome extends CI_Controller {
 		$email = $this->input->post('email');
 		// load model
 		$this->load->model('sendy_model');
-		$data = array(
-			'userID' => '1',
-			'email' => $email,
-			'custom_fields' => '',
-			'list' => '3',
-			'join_date' => $join_date,
-			'timestamp' => $time
-		);
 
-		// pass data to model
-		$this->sendy_model->push_data($data);
-		echo "0";
+		// check if exist
+		$count = $this->sendy_model->pull_email($email);
 
+		if($count == 0) {
+			$data = array(
+				'userID' => '1',
+				'email' => $email,
+				'custom_fields' => '',
+				'list' => '3',
+				'join_date' => $join_date,
+				'timestamp' => $time
+			);
+	
+			// pass data to model
+			$this->sendy_model->push_data($data);
+		} else {
+			$data = array(
+				'unsubscribed' => 0
+			)
+			$this->sendy_model->push_update($data,$email);
+		}
 
 	}
 }

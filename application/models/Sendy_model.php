@@ -7,6 +7,7 @@ class Sendy_model extends CI_Model {
 
     function pull_email($email) {
         $this->db->where('email', $email);
+        $this->db->where('list','3');
         $query = $this->db->get('subscribers');
         return $query->num_rows();
     }
